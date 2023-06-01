@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     stages {
-      withDockerRegistry([credentialsId: 'adrabencheeduit', url: 'http://registry.domain.com:5000']) {
         stage('Construir imagen Docker') {
             steps {
                 script {
-                    def dockerImage = docker.build('test:latest', 'Jenkins_test')
-                    dockerImage.push()
+                    withDockerRegistry([credentialsId: 'adrabencheeduit']) {
+                      def dockerImage = docker.build('adrabencheeduit/test:latest', 'Jenkins_test')
+                      dockerImage.push()
+                    }
                 }
             }
         }
-      }
 
         stage('Ejecutar contenedor') {
             steps {
@@ -22,4 +22,5 @@ pipeline {
         }
     }
 }
+
 
