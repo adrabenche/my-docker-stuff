@@ -5,7 +5,7 @@ pipeline {
         stage('Construir imagen Docker') {
             steps {
                 script {
-                    def dockerImage = docker.build('python:latest', '-f Jenkins_file/Dockerfile')
+                    def dockerImage = docker.build('test:latest', 'Jenkins_file')
                     dockerImage.push()
                 }
             }
@@ -14,7 +14,7 @@ pipeline {
         stage('Ejecutar contenedor') {
             steps {
                 script {
-                    def myContainer = docker.image('test:latest').run('--name test-container -d')
+                    def myContainer = docker.image('test:latest').run('--name test-container --privileged --hostname test-container-d')
                 }
             }
         }
