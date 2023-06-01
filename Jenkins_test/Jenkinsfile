@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+      withDockerRegistry([credentialsId: 'adrabencheeduit', url: 'http://registry.domain.com:5000']) {
         stage('Construir imagen Docker') {
             steps {
                 script {
@@ -10,11 +11,12 @@ pipeline {
                 }
             }
         }
+      }
 
         stage('Ejecutar contenedor') {
             steps {
                 script {
-                    def myContainer = docker.image('test:latest').run('--name test-container --privileged --hostname test-container-d')
+                    def myContainer = docker.image('adrabencheeduit/test:latest').run('--name test-container --privileged --hostname test-container-d')
                 }
             }
         }
