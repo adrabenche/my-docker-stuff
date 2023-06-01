@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Clonar repositorio') {
-            steps {
-                git 'https://github.com/adrabenche/my-docker-stuff.git'
-            }
-        }
-
         stage('Construir imagen Docker') {
             steps {
                 script {
