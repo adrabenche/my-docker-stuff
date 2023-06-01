@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clonar repositorio') {
+            steps {
+                git 'https://github.com/tu-usuario/tu-repositorio.git'
+            }
+        }
+
+        stage('Construir imagen Docker') {
+            steps {
+                script {
+                    def dockerImage = docker.build('mi-imagen:latest', '-f path/al/Dockerfile .')
+                    dockerImage.push()
+                }
+            }
+        }
+
+        stage('Ejecutar contenedor') {
+            steps {
+                script {
+                    def myContainer = docker.image('mi-imagen:latest').run('--name mi-contenedor -d')
+                }
+            }
+        }
+    }
+}
+
