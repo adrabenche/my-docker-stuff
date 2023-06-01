@@ -4,14 +4,14 @@ pipeline {
     stages {
         stage('Clonar repositorio') {
             steps {
-                git 'https://github.com/tu-usuario/tu-repositorio.git'
+                git 'https://github.com/adrabenche/my-docker-stuff.git'
             }
         }
 
         stage('Construir imagen Docker') {
             steps {
                 script {
-                    def dockerImage = docker.build('mi-imagen:latest', '-f path/al/Dockerfile .')
+                    def dockerImage = docker.build('python:latest', '-f Jenkins_file/Dockerfile')
                     dockerImage.push()
                 }
             }
@@ -20,7 +20,7 @@ pipeline {
         stage('Ejecutar contenedor') {
             steps {
                 script {
-                    def myContainer = docker.image('mi-imagen:latest').run('--name mi-contenedor -d')
+                    def myContainer = docker.image('test:latest').run('--name test-container -d')
                 }
             }
         }
