@@ -5,7 +5,7 @@ pipeline {
         stage('Construir imagen Docker') {
             steps {
                 script {
-                    def dockerImage = docker.build('test:latest', 'Jenkins_file')
+                    def dockerImage = docker.build('test:latest', 'Jenkins_test')
                     dockerImage.push()
                 }
             }
