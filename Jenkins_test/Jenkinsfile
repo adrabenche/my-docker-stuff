@@ -16,7 +16,7 @@ pipeline {
         stage('Ejecutar contenedor') {
             steps {
                 script {
-                    def myContainer = docker.image('adrabencheeduit/test:latest').run('--name test-container --privileged --hostname test-container')
+                    def myContainer = docker.image('adrabencheeduit/test:latest').run('--name test-container --privileged --hostname test-container --rm')
                 }
             }
         }
